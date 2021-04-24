@@ -30,14 +30,15 @@ export const gameReducer = (state: State, action: Action): any => {
                 myTurn: false
             }
         case 'RESET_STATE':
-            debugger
             return {...action.initialState, startState: {...action.initialState}}
         case 'SET_STATE':
             let startState = {
                 ...stateCopy,
                 state: Array(action.values.count * 2 + 1).fill(''),
                 myTurn: action.values.beginner === 'player',
-                maxPick: action.values.maxPick
+                maxPick: action.values.maxPick,
+                botState: [],
+                myState: []
             }
             return {...startState, startState: {...startState}}
         default:

@@ -44,7 +44,9 @@ export const HomePage: React.FC<InputProps> = ({dispatch}) => {
                         onChange={(event) => setValue({...values, count: +event.target.value})}
                         variant="outlined"
                         type="number"
-                        size="small"/>
+                        size="small"
+                        InputProps={{inputProps: {min: 2}}}
+                    />
                     <div className={s.quantity}>
                         {values.count * 2 + 1 + ' Donuts'}
                     </div>
@@ -57,13 +59,15 @@ export const HomePage: React.FC<InputProps> = ({dispatch}) => {
                     variant="outlined"
                     type="number"
                     size="small"
+                    InputProps={{inputProps: {min: 1, max: values.count}}}
+                    fullWidth={true}
                 />
                 <FormControl component="fieldset">
                     <FormLabel component="legend">Who will start?</FormLabel>
                     <RadioGroup aria-label="beginner" name="beginner" value={values.beginner}
                                 onChange={beginnerHandleChange}>
                         <FormControlLabel value="player" control={<Radio/>} label="Player"/>
-                        <FormControlLabel value="ai" control={<Radio/>} label="AI"/>
+                        <FormControlLabel value="ai" control={<Radio/>} label="Bot"/>
                     </RadioGroup>
                 </FormControl>
                 <NavLink to="/classic">

@@ -1,8 +1,6 @@
 import React from 'react';
 import s from './GameField.module.css'
 
-const imgUrl: string = 'https://cdn1.iconfinder.com/data/icons/matchstick-emoji-cartoons/560/matchstick-matches-emoji-smiley-cartoon-032-512.png'
-
 type FieldProps = {
     state: Array<string | undefined>
 }

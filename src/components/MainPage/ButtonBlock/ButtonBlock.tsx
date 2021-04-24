@@ -8,12 +8,15 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: 'row',
             alignItems: 'center',
             '& > *': {
                 margin: theme.spacing(1),
             },
         },
+        inputCounter: {
+            width: theme.spacing(10)
+        }
     }),
 );
 
@@ -34,15 +37,19 @@ export const ButtonBlock: React.FC<buttonProps> = ({handleClick, stateLength, my
                 <Button onClick={() => handleClick(2)} disabled={stateLength < 2 || !myTurn}>Two</Button>
                 <Button onClick={() => handleClick(3)} disabled={stateLength < 3 || !myTurn}>Three</Button>
             </ButtonGroup>
-            <TextField
-                id="outlined-name"
-                label="Your quantity"
-                value={quantity}
-                onChange={(event) => setQuantity(+event.target.value)}
-                variant="outlined"
-                type="number"
-            />
-            <Button variant="contained" color="primary" onClick={() => handleClick(quantity)}
+            <div className={classes.inputCounter}>
+                <TextField
+                    id="outlined-name"
+                    label="Quantity"
+                    value={quantity}
+                    onChange={(event) => setQuantity(+event.target.value)}
+                    variant="outlined"
+                    type="number"
+                    size="small"
+                    InputProps={{inputProps: {min: 1, max: maxPick}}}
+                />
+            </div>
+            <Button variant="contained" color="primary" onClick={() => handleClick(quantity)} size="large"
                     disabled={quantity > maxPick || stateLength < quantity || !myTurn}>Pick</Button>
         </div>
     );

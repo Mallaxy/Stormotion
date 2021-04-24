@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import s from './MainPage.module.css'
 import {ButtonBlock} from './ButtonBlock/ButtonBlock'
-import Preloader from '../../preloader/Preloader'
+import Preloader from '../../common/Preloaders/RadialPreloader/Preloader'
 import {GameField} from './GameField/GameField'
 import {Modal} from '../ModalWinner/Modal';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -22,12 +22,29 @@ export const MainPage: React.FC<MainPageProps> = ({dispatch, state}) => {
     }
 
     const botLogic = (): number => {
-        if (state.botState.length % 2 === 0 && (state.state.length - state.maxPick) === 0) return state.maxPick
-        if (state.botState.length % 2 !== 0 && state.state.length === 1) return 1
-        if (state.botState.length % 2 === 0 && state.state.length >= 2) return 2
-        if (state.botState.length % 2 !== 0 && state.state.length >= 3) return 3
+        let [stateLength, maxPick] = [state.state.length, state.maxPick]
+        const oddLogic = () => {
+            for (let i = 1; i <= maxPick; ++i)
+                if ((stateLength - i) % (maxPick + 1) === 0 || (stateLength - i) % 4 === 1) {
+                    return i
+                }
+            return 1
+        }
+        const evenLogic = () => {
+            for (let i = 1; i <= maxPick; ++i)
+                if ((stateLength - i) % (maxPick / 2 + 1) === 0 || (stateLength - i) % 4 === 1) {
+                    return i
+                }
+            return 1
+        }
+
+        if (maxPick % 2 !== 0) return oddLogic()
+        if (maxPick % 2 === 0) return evenLogic()
+
         return 1
     }
+
+
     const handleClick = (number: number): void => {
         dispatch({type: 'MY_ACTION', number})
     }
@@ -37,7 +54,7 @@ export const MainPage: React.FC<MainPageProps> = ({dispatch, state}) => {
                 botAction(botLogic())
             }
         }, 500);
-    }, [state])
+    }, [state.myTurn])
 
     const calcWinner = () => {
         if (state.state.length === 0) {
@@ -48,9 +65,11 @@ export const MainPage: React.FC<MainPageProps> = ({dispatch, state}) => {
     if (state.state.length === 0 && !modalActive) setModalActive(true)
     return (
         <div className={s.mainPage}>
-            <MenuIcon onClick={() => setModalActive(true)}/>
+            <div className={s.topBlock}>
+                <MenuIcon onClick={() => setModalActive(true)} fontSize="large"/>
+                {!state.myTurn ? <Preloader/> : null}
+            </div>
             <GameField state={state.botState}/>
-            {!state.myTurn ? <Preloader/> : null}
             {state.state.length ? <GameField state={state.state}/> : null}
             <GameField state={state.myState}/>
             <ButtonBlock {...{

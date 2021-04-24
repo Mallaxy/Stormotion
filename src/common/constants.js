@@ -1,1 +1,1 @@
-export const gameRules = 'Двое играют в игру. Из кучки, где имеется 25 спичек, каждый берёт себе по очереди одну, две или три спички. Выигрывает тот, у кого в конце игры – после того, как все спички будут разобраны, – окажется четное число спичек.'
+export const gameRules = 'This game is for two players. Each of them takes in turn a certain number of matches or, rather, one, two or three. The game goes to the player, who will receive an odd number of matchsticks at the end of the game.'
