@@ -7,12 +7,9 @@ import FormControl from '@material-ui/core/FormControl';
 import Radio from '@material-ui/core/Radio';
 import {NavLink} from 'react-router-dom';
 import {gameRules} from '../../common/constants'
+import {ValuesState} from '../../redusers/gameReducer'
 
-type InputState = {
-    maxPick: number,
-    beginner: string,
-    count: number
-}
+
 
 type InputProps = {
     dispatch: any,
@@ -21,7 +18,7 @@ type InputProps = {
 export const HomePage: React.FC<InputProps> = ({dispatch}) => {
 
 
-    const initialState: InputState = {
+    const initialState: ValuesState = {
         beginner: 'player',
         count: 12,
         maxPick: 3

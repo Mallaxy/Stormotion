@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {Dispatch, useEffect, useState} from 'react';
 import s from './MainPage.module.css'
 import {ButtonBlock} from './ButtonBlock/ButtonBlock'
 import Preloader from '../../common/Preloaders/RadialPreloader/Preloader'
@@ -6,12 +6,12 @@ import {GameField} from './GameField/GameField'
 import {Modal} from '../ModalWinner/Modal';
 import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
-import {State} from '../../redusers/gameReducer'
+import {Action, State} from '../../redusers/gameReducer'
 import {gameRules} from '../../common/constants';
 
 
 type MainPageProps = {
-    dispatch: any,
+    dispatch: Dispatch<Action>,
     state: State
 }
 

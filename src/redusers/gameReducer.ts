@@ -1,20 +1,49 @@
 export type State = {
-    state: Array<string | any>,
-    myState: Array<string | any>,
-    botState: Array<string | any>,
+    state: Array<string | undefined>,
+    myState: Array<string | undefined>,
+    botState: Array<string | undefined>,
     myTurn: boolean,
     maxPick: number,
-    startState?: State
+    startState: StartState
+}
+
+export type ValuesState = {
+    maxPick: number,
+    beginner: string,
+    count: number
+}
+
+export type StartState = {
+    state: Array<string | undefined>,
+    myState: Array<string | undefined>,
+    botState: Array<string | undefined>,
+    myTurn: boolean,
+    maxPick: number,
 }
 
 export type Action =
     | { type: 'BOT_ACTION', number: number }
     | { type: 'MY_ACTION', number: number }
-    | { type: 'RESET_STATE', initialState: State }
+    | { type: 'RESET_STATE', initialState: StartState}
     | { type: 'SELECT_MODE', mode: boolean }
-    | { type: 'SET_STATE', values: any }
+    | { type: 'SET_STATE', values: ValuesState }
 
-export const gameReducer = (state: State, action: Action): any => {
+const initialState: State = {
+    state: Array(25).fill(''),
+    myState: [],
+    botState: [],
+    myTurn: true,
+    maxPick: 3,
+    startState: {
+        state: Array(25).fill(''),
+        myState: [],
+        botState: [],
+        myTurn: true,
+        maxPick: 3,
+    }
+}
+
+export const gameReducer = (state: State = initialState, action: Action): State => {
     let stateCopy = {...state, state: [...state.state]}
     switch (action.type) {
         case 'BOT_ACTION':

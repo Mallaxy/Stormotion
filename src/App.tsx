@@ -4,7 +4,7 @@ import './App.css';
 import {MainPage} from './components/MainPage/MainPage'
 import Navbar from './components/Navbar/Navbar'
 import {HomePage} from './components/HomePage/HomePage'
-import {gameReducer, State} from './redusers/gameReducer'
+import {gameReducer, StartState, State} from './redusers/gameReducer'
 
 export const App: React.FC = () => {
     const initialState: State = {
