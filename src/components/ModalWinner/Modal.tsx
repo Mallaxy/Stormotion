@@ -6,10 +6,10 @@ type TypesModal = {
     setActive: any
 }
 
-export const Modal:React.FC<TypesModal> = ({active, setActive, children}) => {
+export const Modal: React.FC<TypesModal> = ({active, setActive, children}) => {
     return (
-        <div className={active ? "modal active" : "modal"} onClick={() => setActive(false)}>
-            <div className={active ? "modalContent active" : "modalContent"} onClick={e => e.stopPropagation()}>
+        <div className={active ? 'modal active' : 'modal'} onClick={() => setActive(false)}>
+            <div className={active ? 'modalContent active' : 'modalContent'} onClick={e => e.stopPropagation()}>
                 {children}
             </div>
         </div>

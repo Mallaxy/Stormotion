@@ -3,15 +3,17 @@
     background-color: cornflowerblue;
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(2, 1fr);
     align-items: center;
     justify-items: center;
     font-size: 2rem;
     font-family: Roboto, sans-serif;
 }
+
 a {
     color: black;
 }
+
 a.activeLink {
     color: white;
     font-weight: 700;

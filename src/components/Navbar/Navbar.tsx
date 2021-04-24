@@ -5,11 +5,11 @@ import s from './Navbar.module.css'
 export default function Navbar() {
     return (
         <div className={s.navbar}>
-            <NavLink to="/classic" activeClassName={s.activeLink}>
-                Classic
+            <NavLink to="/home" activeClassName={s.activeLink}>
+                Settings
             </NavLink>
-            <NavLink to="/custom" activeClassName={s.activeLink}>
-                Custom
+            <NavLink to="/classic" activeClassName={s.activeLink}>
+                Game
             </NavLink>
         </div>
     );

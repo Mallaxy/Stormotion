@@ -7,7 +7,7 @@ type FieldProps = {
     state: Array<string | undefined>
 }
 
-export const GameField:React.FC<FieldProps> = ({state}) => {
+export const GameField: React.FC<FieldProps> = ({state}) => {
 
     return (
         <div className={s.gameField}>

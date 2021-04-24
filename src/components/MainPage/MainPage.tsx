@@ -1,70 +1,74 @@
-import React, {useReducer, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './MainPage.module.css'
 import {ButtonBlock} from './ButtonBlock/ButtonBlock'
 import Preloader from '../../preloader/Preloader'
 import {GameField} from './GameField/GameField'
-import {gameReducer} from '../../redusers/gameReducer'
-import { Modal } from '../ModalWinner/Modal';
+import {Modal} from '../ModalWinner/Modal';
 import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
+import {State} from '../../redusers/gameReducer'
+import {gameRules} from '../../common/constants';
 
 
-const gameRules = 'Двое играют в игру. Из кучки, где имеется 25 спичек, каждый берёт себе по очереди одну, две или три спички. Выигрывает тот, у кого в конце игры – после того, как все спички будут разобраны, – окажется четное число спичек.'
+type MainPageProps = {
+    dispatch: any,
+    state: State
+}
 
-export const MainPage:React.FC = () => {
-    const initialState = {
-        state: Array(25).fill(''),
-        myState: [],
-        botState: [],
-        myTurn: true
-    }
-    const [{state, myState, botState, myTurn}, dispatch] = useReducer(gameReducer, initialState)
+export const MainPage: React.FC<MainPageProps> = ({dispatch, state}) => {
     const [modalActive, setModalActive] = useState(false)
     const botAction = (number: number): void => {
         dispatch({type: 'BOT_ACTION', number})
     }
+
     const botLogic = (): number => {
-        if (botState.length % 2 !== 0 && state.length === 1) return 1
-        if (botState.length % 2 === 0 && state.length >= 2) return 2
-        if (botState.length % 2 !== 0 && state.length >= 3) return 3
+        if (state.botState.length % 2 === 0 && (state.state.length - state.maxPick) === 0) return state.maxPick
+        if (state.botState.length % 2 !== 0 && state.state.length === 1) return 1
+        if (state.botState.length % 2 === 0 && state.state.length >= 2) return 2
+        if (state.botState.length % 2 !== 0 && state.state.length >= 3) return 3
         return 1
     }
     const handleClick = (number: number): void => {
         dispatch({type: 'MY_ACTION', number})
     }
-    if (!myTurn) {
-        botAction(botLogic())
-    }
+    useEffect(() => {
+        setTimeout(() => {
+            if (!state.myTurn) {
+                botAction(botLogic())
+            }
+        }, 500);
+    }, [state])
+
     const calcWinner = () => {
-        if (state.length === 0) {
-            if (botState.length % 2 === 0) return 'Bot is a winner!'
-            if (myState.length % 2 === 0) return 'You are the winner!'
+        if (state.state.length === 0) {
+            if (state.botState.length % 2 === 0) return 'Bot is a winner!'
+            if (state.myState.length % 2 === 0) return 'You are the winner!'
         }
     }
-    if ( state.length === 0 && !modalActive) setModalActive(true)
+    if (state.state.length === 0 && !modalActive) setModalActive(true)
     return (
         <div className={s.mainPage}>
-            <div className={s.select}>
-                Who will start?
-                <Button variant="contained" color="primary" onClick={() => dispatch({type: "SELECT_MODE", mode: true})}>
-                    Player
-                </Button>
-                <Button variant="contained" color="secondary" onClick={() => dispatch({type: "SELECT_MODE", mode: false})}>
-                    Bot
-                </Button>
-            </div>
             <MenuIcon onClick={() => setModalActive(true)}/>
-            <GameField state={botState}/>
-            {!myTurn ? <Preloader/> : null}
-            {state.length ? <GameField state={state}/> : null}
-            <GameField state={myState}/>
-            <ButtonBlock {...{handleClick, stateLength: state.length, myTurn: myTurn}}/>
+            <GameField state={state.botState}/>
+            {!state.myTurn ? <Preloader/> : null}
+            {state.state.length ? <GameField state={state.state}/> : null}
+            <GameField state={state.myState}/>
+            <ButtonBlock {...{
+                handleClick,
+                stateLength: state.state.length,
+                myTurn: state.myTurn,
+                maxPick: state.maxPick
+            }}/>
             <Modal active={modalActive} setActive={setModalActive}>
-                <div className={s.winner}>{state.length === 0 ? calcWinner() : "Hello my Master!" }</div>
-                <div className={s.rules}>{gameRules}</div>
+                <div className={s.winner}>{state.state.length === 0 ? calcWinner() : 'Hello my Master!'}</div>
+                <div className={s.rules}>
+                    <h1>Rules</h1>
+                    {gameRules}
+                </div>
                 <Button variant="contained" size="large" onClick={() => {
                     setModalActive(false)
-                    dispatch({type: "RESET_STATE", initialState})}} color='primary'>New Game</Button>
+                    dispatch({type: 'RESET_STATE', initialState: state.startState})
+                }} color="primary">New Game</Button>
             </Modal>
         </div>
     );

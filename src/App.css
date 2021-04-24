@@ -1,17 +1,20 @@
 .wrapper {
-  background-color: lightslategray;
+    background: pink center / cover no-repeat url("https://images.squarespace-cdn.com/content/v1/5a8684066957da8e16eed5fc/1554511080731-V07VNI3V6Y6XGDJ991CI/ke17ZwdGBToddI8pDm48kLkXF2pIyv_F2eUT9F60jBl7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0iyqMbMesKd95J-X4EagrgU9L3Sa3U8cogeb0tjXbfawd0urKshkc5MgdBeJmALQKw/Allen_190328_Primo%27s+Easter-28.jpg?format=1000w");
 }
 
 .container {
-  min-height: 100vh;
-  background-color: slategray;
-  width: 50rem;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    min-height: 100vh;
+    background-color: lightpink;
+    width: 50rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 12px 0 15px -4px rgba(31, 73, 125, 0.8), -12px 0 8px -4px rgba(31, 73, 125,
+    0.8);
+
 }
 
 .page {
-  padding: 3rem 0;
+    padding: 3rem 0;
 }

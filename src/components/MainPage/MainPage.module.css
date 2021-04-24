@@ -28,6 +28,11 @@ img {
 }
 
 .rules {
+    text-align: center;
     margin-bottom: 2rem;
     font-size: 1.25rem;
+}
+
+.rules h1 {
+    padding-bottom: 10px;
 }
