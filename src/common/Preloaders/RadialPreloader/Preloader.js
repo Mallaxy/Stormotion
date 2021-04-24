@@ -1,19 +1,19 @@
 import React from "react";
-import classes from './Preloader.module.css'
+import classes from "./Preloader.module.css";
 
 const Preloader = (props) => {
-    return (
-        <div className={classes.ldsRoller}>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    )
-}
+  return (
+    <div className={classes.ldsRoller}>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  );
+};
 
-export default Preloader
+export default Preloader;
