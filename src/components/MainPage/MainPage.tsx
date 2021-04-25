@@ -1,4 +1,4 @@
-import React, { Dispatch, useEffect, useState } from "react";
+import React, {Dispatch, useEffect, useState} from 'react';
 import s from "./MainPage.module.css";
 import { ButtonBlock } from "./ButtonBlock/ButtonBlock";
 import Preloader from "../../common/Preloaders/RadialPreloader/Preloader";
@@ -6,59 +6,37 @@ import { GameField } from "./GameField/GameField";
 import { Modal } from "../ModalWinner/Modal";
 import MenuIcon from "@material-ui/icons/Menu";
 import Button from "@material-ui/core/Button";
-import { Action, State } from "../../redusers/gameReducer";
 import { gameRules } from "../../common/constants";
+import {botLogic} from '../../utils/utils'
+import {Action, State} from '../../hooks/useGameReducer'
+import {useGame} from '../../Context/GameProvider'
+
 
 type MainPageProps = {
   dispatch: Dispatch<Action>;
   state: State;
 };
 
-export const MainPage: React.FC<MainPageProps> = ({ dispatch, state }) => {
+export const MainPage: React.FC = () => {
   const [modalActive, setModalActive] = useState(false);
+
+
+  const {dispatch, state} = useGame() as MainPageProps
+
   const botAction = (number: number): void => {
     dispatch({ type: "BOT_ACTION", number });
   };
-
-  const botLogic = (): number => {
-    let [stateLength, maxPick] = [state.state.length, state.maxPick];
-    const oddLogic = () => {
-      for (let i = 1; i <= maxPick; ++i)
-        if (
-          (stateLength - i) % (maxPick + 1) === 0 ||
-          (stateLength - i) % 4 === 1
-        ) {
-          return i;
-        }
-      return 1;
-    };
-    const evenLogic = () => {
-      for (let i = 1; i <= maxPick; ++i)
-        if (
-          (stateLength - i) % (maxPick / 2 + 1) === 0 ||
-          (stateLength - i) % 4 === 1
-        ) {
-          return i;
-        }
-      return 1;
-    };
-
-    if (maxPick % 2 !== 0) return oddLogic();
-    if (maxPick % 2 === 0) return evenLogic();
-
-    return 1;
-  };
-
   const handleClick = (number: number): void => {
     dispatch({ type: "MY_ACTION", number });
   };
+
   useEffect(() => {
     setTimeout(() => {
       if (!state.myTurn) {
-        botAction(botLogic());
+        botAction(botLogic(state.state.length, state.maxPick));
       }
     }, 500);
-  }, [state.myTurn]);
+  }, [botAction, state.maxPick, state.myTurn, state.state.length]);
 
   const calcWinner = () => {
     if (state.state.length === 0) {
@@ -66,7 +44,9 @@ export const MainPage: React.FC<MainPageProps> = ({ dispatch, state }) => {
       if (state.myState.length % 2 === 0) return "You are the winner!";
     }
   };
+
   if (state.state.length === 0 && !modalActive) setModalActive(true);
+
   return (
     <div className={s.mainPage}>
       <div className={s.topBlock}>

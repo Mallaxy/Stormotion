@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Dispatch} from 'react';
 import { FormLabel, RadioGroup, TextField } from "@material-ui/core";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import s from "./HomePage.module.css";
@@ -7,20 +7,25 @@ import FormControl from "@material-ui/core/FormControl";
 import Radio from "@material-ui/core/Radio";
 import { NavLink } from "react-router-dom";
 import { gameRules } from "../../common/constants";
-import { ValuesState } from "../../redusers/gameReducer";
+import {Action, ValuesState} from '../../hooks/useGameReducer';
+import {useGame} from '../../Context/GameProvider'
+import { useState } from 'react';
+
 
 type InputProps = {
-  dispatch: any;
+  dispatch: Dispatch<Action>;
 };
 
-export const HomePage: React.FC<InputProps> = ({ dispatch }) => {
+export const HomePage: React.FC = () => {
   const initialState: ValuesState = {
     beginner: "player",
     count: 12,
     maxPick: 3,
   };
 
-  const [values, setValue] = React.useState(initialState);
+  const {dispatch} = useGame() as InputProps
+
+  const [values, setValue] = useState(initialState);
 
   const beginnerHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue({ ...values, beginner: (event.target as HTMLInputElement).value });

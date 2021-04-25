@@ -2,7 +2,7 @@ import React from "react";
 import s from "./GameField.module.css";
 
 type FieldProps = {
-  state: Array<string | undefined>;
+  state: Array<number | undefined>;
 };
 
 export const GameField: React.FC<FieldProps> = ({ state }) => {
