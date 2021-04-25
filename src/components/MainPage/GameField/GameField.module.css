@@ -1,23 +1,23 @@
 .matchElements {
-  display: grid;
-  grid-template-columns: repeat(5, 4rem);
-  gap: 10px;
-  border: 2px solid cornflowerblue;
-  border-radius: 10px;
-  padding: 20px;
-  font-size: 2.5rem;
-  background-color: #ffe997;
+    display: grid;
+    grid-template-columns: repeat(5, 4rem);
+    gap: 10px;
+    border: 2px solid cornflowerblue;
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 2.5rem;
+    background-color: #ffe997;
 }
 
 .gameField {
-  display: grid;
-  grid-template-columns: 1fr 5rem;
-  align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 5rem;
+    align-items: center;
 }
 
 .quantity {
-  color: rgba(40, 40, 40, 0.91);
-  font-size: 2rem;
-  font-weight: 700;
-  justify-self: end;
+    color: rgba(40, 40, 40, 0.91);
+    font-size: 2rem;
+    font-weight: 700;
+    justify-self: end;
 }

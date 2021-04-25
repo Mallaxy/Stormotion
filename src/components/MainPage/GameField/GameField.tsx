@@ -1,19 +1,22 @@
-import React from "react";
-import s from "./GameField.module.css";
+import React from 'react';
+import s from './GameField.module.css';
 
 type FieldProps = {
-  state: Array<number | undefined>;
+    state: number;
 };
 
-export const GameField: React.FC<FieldProps> = ({ state }) => {
-  return (
-    <div className={s.gameField}>
-      <div className={s.matchElements}>
-        {state.map((el) => (
-          <div>🍩</div>
-        ))}
-      </div>
-      <div className={s.quantity}>{state.length}</div>
-    </div>
-  );
+export const GameField: React.FC<FieldProps> = ({state}) => {
+
+    const arrayElements: Array<number> = [...Array(state).fill(1)];
+
+    return (
+        <div className={s.gameField}>
+            <div className={s.matchElements}>
+                {arrayElements.map((el, index) => (
+                    <div key={index}>🍩</div>
+                ))}
+            </div>
+            <div className={s.quantity}>{state}</div>
+        </div>
+    );
 };

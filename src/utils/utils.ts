@@ -1,4 +1,5 @@
-export const botLogic = (stateLength:number, maxPick:number): number => {
+export const botLogic = (stateLength: number, maxPick: number): number => {
+    if (!stateLength) return 0;
     const oddLogic = () => {
         for (let i = 1; i <= maxPick; ++i)
             if (
@@ -23,3 +24,7 @@ export const botLogic = (stateLength:number, maxPick:number): number => {
     if (maxPick % 2 === 0) return evenLogic();
     return 1;
 };
+
+export function raise(error: Error): never {
+    throw error;
+}

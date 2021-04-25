@@ -4,7 +4,7 @@ import './App.css';
 import {MainPage} from './components/MainPage/MainPage';
 import Navbar from './components/Navbar/Navbar';
 import {HomePage} from './components/HomePage/HomePage';
-import {GameProvider} from './Context/GameProvider'
+import {GameProvider} from './Context/GameProvider';
 
 export const App: React.FC = () => {
     return (
@@ -16,11 +16,8 @@ export const App: React.FC = () => {
                         <Route exact path="/">
                             <Redirect to="/home"/>
                         </Route>
-                        <Route path="/home" render={() => <HomePage />}/>
-                        <Route
-                            path="/classic"
-                            render={() => <MainPage />}
-                        />
+                        <Route path="/home" component={React.memo(HomePage)}/>
+                        <Route path="/classic" component={React.memo(MainPage)}/>
                     </div>
                 </div>
             </div>
