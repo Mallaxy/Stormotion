@@ -18,6 +18,7 @@ export const MainPage: React.FC = () => {
     const botAction = (number: number): void => {
         dispatch({type: 'BOT_ACTION', number});
     };
+
     const handleClick = (number: number): void => {
         dispatch({type: 'MY_ACTION', number});
     };

@@ -16,8 +16,8 @@ export const App: React.FC = () => {
                         <Route exact path="/">
                             <Redirect to="/home"/>
                         </Route>
-                        <Route path="/home" component={React.memo(HomePage)}/>
-                        <Route path="/classic" component={React.memo(MainPage)}/>
+                        <Route path="/home" component={HomePage}/>
+                        <Route path="/classic" component={MainPage}/>
                     </div>
                 </div>
             </div>
